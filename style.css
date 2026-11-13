@@ -1,0 +1,244 @@
+@font-face {
+  font-family: "LK Ternima";
+  src:
+    url("./fonts/LK_Ternima-Regular.woff2") format("woff2"),
+    url("./fonts/LK_Ternima-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-bg: #000000;
+  --color-text: #ffffff;
+  --color-track: #3a3a3a;
+
+  --font-base: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-heading: "LK Ternima", sans-serif;
+
+  --space-2: 1rem;
+  --space-3: 2rem;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  font-family: var(--font-base);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+  line-height: 1.2;
+}
+
+p {
+  overflow-wrap: break-word;
+}
+
+a {
+  color: inherit;
+}
+
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::after,
+  *::before {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+a,
+p {
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.preloader-counter {
+  position: fixed;
+  top: 50%;
+  left: var(--space-3);
+  z-index: 10;
+  transform: translateY(-50%) scale(0.25);
+  transform-origin: left bottom;
+}
+
+.preloader-value {
+  display: flex;
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 20vw, 25rem);
+  line-height: 1;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-2);
+
+  @media screen and (min-width: 768px) {
+    align-items: center;
+  }
+}
+
+.header-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  text-align: right;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-height: 100svh;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+  }
+}
+
+/* Начальное состояние прелоадера: картинка сжата в точку, шкала пуста.
+   Без анимаций script.js сразу выставляет конечное состояние */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
+
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%) scale(2);
+  }
+}
+
+.hero-header {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  padding: var(--space-3);
+  transform: translateY(-50%);
+
+  h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(3.5rem, 16vw, 20rem);
+    font-weight: 400;
+    line-height: 1;
+    text-align: center;
+  }
+}
+
+.hero-footer {
+  position: absolute;
+  bottom: var(--space-3);
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0 var(--space-2);
+}
+
+/* Текст скрыт до разбивки на буквы, иначе он мелькнёт до анимации */
+.hero-header h1,
+.header a,
+.hero-footer p {
+  visibility: hidden;
+}
+
+.progress-bar {
+  position: absolute;
+  bottom: 3.5rem;
+  left: var(--space-2);
+  width: calc(100% - 2 * var(--space-2));
+  height: 1px;
+  background: var(--color-track);
+  overflow: hidden;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.progress {
+  position: absolute;
+  inset: 0;
+  background: var(--color-text);
+  transform: scaleX(0);
+  transform-origin: left;
+}
